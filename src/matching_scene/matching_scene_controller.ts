@@ -1,16 +1,19 @@
 import Konva from "konva";
 import { MatchView } from "./matching_scene_view";
+import { App } from "../main";
 
 export class MatchController {
     private view: MatchView;
     private stage: Konva.Stage;
-    constructor(stage: Konva.Stage){
+    private screenSwitcher: App;
+    constructor(screenSwitcher: App, stage: Konva.Stage){
         this.stage = stage;
-        this.view = new MatchView(this.stage, this.arrowAnimation);
+        this.screenSwitcher = screenSwitcher;
+        this.view = new MatchView(this.stage, this.arrowAnimation, this.switchToScreen.bind(this));
     }
 
-    showView(): void {
-        this.view.show();
+    switchToScreen(s:String): void {
+        this.screenSwitcher.switchScreen(s);
     }
 
     getView(): MatchView {
